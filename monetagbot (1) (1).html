@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Earn & Reward App</title>
+    <title>Tonerium ADS Bot</title>
     
     <!-- Google Fonts (Nunito) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,12 +13,8 @@
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
 
-    <!-- Internal CSS -->
+    <!-- Internal CSS (Önceki kodla aynı) -->
     <style>
-        /* Google Font Import */
-        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
-
-        /* CSS Variables for Theming */
         :root {
             --font-family: 'Nunito', sans-serif;
             --bg-color-light: #f4f4f9;
@@ -34,8 +30,6 @@
             --primary-color-dark: #0a84ff;
             --border-color-dark: #38383a;
         }
-
-        /* Base Styles */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: var(--font-family);
@@ -43,13 +37,9 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
-
-        /* Theme Styles */
         body.light-theme { background-color: var(--bg-color-light); color: var(--text-color-light); }
         body.dark-theme { background-color: var(--bg-color-dark); color: var(--text-color-dark); }
         #app { max-width: 500px; margin: 0 auto; padding-bottom: 70px; }
-
-        /* Profile Header */
         .profile-header { padding: 20px 15px; display: flex; align-items: center; border-bottom: 1px solid; }
         .light-theme .profile-header { border-bottom-color: var(--border-color-light); }
         .dark-theme .profile-header { border-bottom-color: var(--border-color-dark); }
@@ -64,15 +54,11 @@
         .user-details p { font-size: 0.9rem; font-weight: 600; }
         .light-theme .user-details p { color: var(--subtle-text-light); }
         .dark-theme .user-details p { color: var(--subtle-text-dark); }
-
-        /* Main Content & Pages */
         main { padding: 15px; }
         .page { display: none; }
         .page.active { display: block; animation: fadeIn 0.3s ease-in-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         h2 { font-size: 1.5rem; margin-bottom: 15px; }
-
-        /* Home Page Stats & Referral */
         .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 20px; }
         .stat-card { padding: 20px; border-radius: 12px; text-align: center; }
         .light-theme .stat-card { background-color: var(--secondary-bg-light); border: 1px solid var(--border-color-light); }
@@ -93,8 +79,6 @@
         #copy-ref-link-btn { width: 100%; padding: 12px; border: none; border-radius: 8px; color: #fff; cursor: pointer; font-weight: 600; }
         .light-theme #copy-ref-link-btn { background-color: var(--primary-color-light); }
         .dark-theme #copy-ref-link-btn { background-color: var(--primary-color-dark); }
-        
-        /* Task/Bonus Container */
         .task-container { padding: 20px; border-radius: 12px; text-align: center; margin-bottom: 20px; }
         .task-container:last-child { margin-bottom: 0; }
         .light-theme .task-container { background-color: var(--secondary-bg-light); border: 1px solid var(--border-color-light); }
@@ -106,8 +90,6 @@
         .task-container p { font-size: 0.9rem; margin-bottom: 20px; }
         .light-theme .task-container p { color: var(--subtle-text-light); }
         .dark-theme .task-container p { color: var(--subtle-text-dark); }
-
-        /* Action Button */
         .action-btn { width: 100%; padding: 15px; font-size: 1rem; font-weight: 700; color: #fff; border: none; border-radius: 10px; cursor: pointer; transition: background-color 0.2s, opacity 0.2s; position: relative; display: flex; justify-content: center; align-items: center; }
         .light-theme .action-btn { background-color: var(--primary-color-light); }
         .dark-theme .action-btn { background-color: var(--primary-color-dark); }
@@ -116,8 +98,6 @@
         .action-btn.loading .btn-text { visibility: hidden; }
         .action-btn.loading .btn-loader { display: block; position: absolute; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-
-        /* Form Styles */
         #withdraw-form .form-group { margin-bottom: 15px; }
         #withdraw-form label { display: block; margin-bottom: 5px; font-weight: 600; }
         #withdraw-form input, #withdraw-form select { width: 100%; padding: 12px; border-radius: 8px; font-family: var(--font-family); font-size: 1rem; transition: border-color 0.2s, box-shadow 0.2s; }
@@ -125,8 +105,6 @@
         .dark-theme #withdraw-form input, .dark-theme #withdraw-form select { background-color: var(--secondary-bg-dark); border: 1px solid var(--border-color-dark); color: var(--text-color-dark); }
         .light-theme input:focus, .light-theme select:focus { outline: none; border-color: var(--primary-color-light); box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.15); }
         .dark-theme input:focus, .dark-theme select:focus { outline: none; border-color: var(--primary-color-dark); box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.2); }
-        
-        /* Bottom Navigation */
         .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; max-width: 500px; margin: 0 auto; display: flex; justify-content: space-around; padding: 5px 0; border-top: 1px solid; z-index: 1000; }
         .light-theme .bottom-nav { background-color: var(--secondary-bg-light); border-top-color: var(--border-color-light); }
         .dark-theme .bottom-nav { background-color: var(--secondary-bg-dark); border-top-color: var(--border-color-dark); }
@@ -137,8 +115,6 @@
         .nav-btn.active { font-weight: 700; }
         .light-theme .nav-btn.active { color: var(--primary-color-light); }
         .dark-theme .nav-btn.active { color: var(--primary-color-dark); }
-
-        /* Modal Styles */
         .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); justify-content: center; align-items: center; }
         .modal-content { padding: 30px; border-radius: 15px; text-align: center; }
         .light-theme .modal-content { background-color: var(--secondary-bg-light); }
@@ -149,14 +125,13 @@
     </style>
 </head>
 <body>
-
     <div id="app">
         <header class="profile-header">
             <div class="profile-info">
                 <img id="user-photo" src="" alt="User Photo">
                 <div class="user-details">
                     <h1 id="user-name">Loading... <i class="fas fa-check-circle verified-icon"></i></h1>
-                    <p> Balance: ৳<span id="user-points">0</span>TK</p>
+                    <p>Balance: $<span id="user-points">0.00</span></p>
                 </div>
             </div>
         </header>
@@ -168,16 +143,16 @@
                 <div class="stats-grid">
                     <div class="stat-card">
                         <h3>Daily Ads Watched</h3>
-                        <p><span id="daily-ads-watched">00</span> /  25</p>
+                        <p><span id="daily-ads-watched">0</span> / 25</p>
                     </div>
                     <div class="stat-card">
                         <h3>Total Referrals</h3>
-                        <p id="referral-count">00</p>
+                        <p id="referral-count">0</p>
                     </div>
                 </div>
                 <div class="referral-section">
                     <h3>Refer & Earn More!</h3>
-                    <p>Share your link to get bonus points.</p>
+                    <p>Share your link to get bonus TON.</p>
                     <input type="text" id="referral-link" readonly>
                     <button id="copy-ref-link-btn">Copy Referral Link</button>
                 </div>
@@ -189,44 +164,35 @@
                 <div class="task-container">
                     <i class="fas fa-video task-icon"></i>
                     <h3>Watch a Rewarded Ad</h3>
-                    <p>Earn 0.25 TK for every ad.</p>
-                    <button id="watch-ad-btn" class="action-btn">Watch Ad</button>
+                    <p>Earn $0.0025 for every ad.</p>
+                    <button id="watch-ad-btn" class="action-btn">
+                        <span class="btn-text">Watch Ad</span>
+                        <span class="btn-loader"></span>
+                    </button>
                 </div>
                 <div class="task-container">
                     <i class="fab fa-telegram task-icon"></i>
-                    <h3>Join Our Channel</h3>
-                    <p>Get ৳10 bonus.</p>
-                    <button id="join-channel-btn" class="action-btn">Join & Claim Bonus</button>
-                </div>
-                <div class="task-container">
-                    <i class="fas fa-users task-icon"></i>
-                    <h3>Join Our Group</h3>
-                    <p>Get ৳2 bonus.</p>
-                    <button id="join-group-btn" class="action-btn">Join & Claim Bonus</button>
+                    <h3>Join Our TON Channel</h3>
+                    <p>Get $0.10 bonus.</p>
+                    <button id="join-channel-btn" class="action-btn">
+                        <span class="btn-text">Join & Claim Bonus</span>
+                        <span class="btn-loader"></span>
+                    </button>
                 </div>
             </div>
             
             <!-- Withdraw Page -->
             <div id="withdraw-page" class="page">
                 <h2>Withdraw</h2>
-                <p>Minimum 50 TK required to withdraw.</p>
+                <p>Minimum $0.05 required to withdraw.</p>
                 <form id="withdraw-form">
                     <div class="form-group">
-                        <label for="withdraw-method">Method:</label>
-                        <select id="withdraw-method" required>
-                            <option value="Bkash">Bkash</option>
-                            <option value="Nagad">Nagad</option>
-                
-                            <option value="Binance">Binance</option>
-                        </select>
+                        <label for="account-number">TON Wallet Address:</label>
+                        <input type="text" id="account-number" placeholder="e.g., EQCc3-G_..." required>
                     </div>
                     <div class="form-group">
-                        <label for="account-number">Account Number/ID:</label>
-                        <input type="text" id="account-number" placeholder="e.g., 012345..." required>
-                    </div>
-                    <div class="form-group">
-                        <label for="amount">Taka to Withdraw:</label>
-                        <input type="number" id="amount" placeholder="e.g., 02" required>
+                        <label for="amount">Amount ($) to Withdraw:</label>
+                        <input type="number" id="amount" placeholder="e.g., 0.05" step="0.01" required>
                     </div>
                     <button type="submit" id="withdraw-submit-btn" class="action-btn">
                         <span class="btn-text">Submit Request</span>
@@ -244,27 +210,22 @@
     </div>
 
     <div id="loading-modal" class="modal">
-        <div class="modal-content"><div class="loader"></div><p>Loading Ad...</p></div>
+        <div class="modal-content"><div class="loader"></div><p>Loading...</p></div>
     </div>
     
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script src='//libtl.com/sdk.js' data-zone='9712189' data-sdk='show_9712189'></script>
-    
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const tg = window.Telegram.WebApp;
 
             // --- Configuration ---
-            const BOT_TOKEN = "8440148461:AAGDh6aXDswlpR1ug_Cx9JAnOGKnmvH8h_4";
-            const BOT_USERNAME = "Takamakerbd_bot"; // Your bot's username
-            const ADMIN_CHAT_ID = "6786186083";
-            const CHANNEL_LINK = "https://t.me/trickmimicrojob";
-            const GROUP_LINK = "https://t.me/+XOFG-KodIfkzMDc1";
+            const BOT_USERNAME = "Tonerium_ADS_Bot";
+            const CHANNEL_LINK = "https://t.me/tonerium_channel";
             const DAILY_AD_LIMIT = 25;
-            const POINTS_PER_AD = 0.25;
-            const CHANNEL_JOIN_BONUS = 10;
-            const GROUP_JOIN_BONUS = 02;
-            const MIN_WITHDRAW_POINTS = 50;
+            const POINTS_PER_AD = 0.0025; // $0.0025
+            const CHANNEL_JOIN_BONUS = 0.10; // $0.10
+            const MIN_WITHDRAW_POINTS = 0.05; // $0.05
+            const API_BASE_URL = "https://your-render-app.onrender.com/api"; // Render API URL
 
             // --- DOM Elements ---
             const userPhotoElem = document.getElementById('user-photo');
@@ -274,7 +235,6 @@
             const referralCountElem = document.getElementById('referral-count');
             const watchAdBtn = document.getElementById('watch-ad-btn');
             const joinChannelBtn = document.getElementById('join-channel-btn');
-            const joinGroupBtn = document.getElementById('join-group-btn');
             const withdrawForm = document.getElementById('withdraw-form');
             const withdrawSubmitBtn = document.getElementById('withdraw-submit-btn');
             const referralLinkElem = document.getElementById('referral-link');
@@ -288,12 +248,11 @@
                 lastAdWatchDate: null,
                 referrals: [],
                 hasJoinedChannel: false,
-                hasJoinedGroup: false, // New state for group join
                 userId: null
             };
 
             const saveState = () => {
-                if(userState.userId) {
+                if (userState.userId) {
                     localStorage.setItem(`userState_${userState.userId}`, JSON.stringify(userState));
                 }
             };
@@ -302,13 +261,11 @@
                 const savedState = localStorage.getItem(`userState_${userId}`);
                 if (savedState) {
                     userState = JSON.parse(savedState);
-                    // Ensure new state properties exist
-                    if (userState.hasJoinedGroup === undefined) userState.hasJoinedGroup = false;
                 }
             };
-            
+
             // --- Core Functions ---
-            const initApp = () => {
+            const initApp = async () => {
                 tg.ready();
                 tg.expand();
                 document.body.className = `${tg.colorScheme}-theme`;
@@ -318,151 +275,231 @@
                     tg.showAlert("Could not verify user. Please open this app through Telegram.", () => tg.close());
                     return;
                 }
-                
+
                 userState.userId = user.id;
                 loadState(user.id);
-                
+
+                // Referans parametresini kontrol et
+                const startParam = tg.initDataUnsafe.start_param;
+                if (startParam && startParam.startsWith('ref_')) {
+                    const referrerId = startParam.split('ref_')[1];
+                    await claimReferral(referrerId, user.id);
+                }
+
+                // Sunucudan kullanıcı verilerini al
+                await fetchUserData(user.id);
+
                 const today = new Date().toISOString().slice(0, 10);
                 if (userState.lastAdWatchDate !== today) {
                     userState.dailyAdWatchCount = 0;
                     userState.lastAdWatchDate = today;
                 }
-                
+
                 updateUI();
                 setupNavigation();
                 setupEventListeners();
                 saveState();
             };
-            
-            const updateUI = () => {
-                const user = tg.initDataUnsafe.user;
-                if (user) {
-                    userPhotoElem.src = user.photo_url || 'https://i.imgur.com/placeholder.png';
-                    userNameElem.innerHTML = `${user.first_name || ''} ${user.last_name || ''} <i class="fas fa-check-circle verified-icon"></i>`;
-                }
-                
-                userPointsElem.textContent = userState.points;
-                dailyAdsWatchedElem.textContent = userState.dailyAdWatchCount;
-                referralCountElem.textContent = userState.referrals.length;
 
-                referralLinkElem.value = `https://t.me/${BOT_USERNAME}?start=ref_${userState.userId}`;
-
-                // Update task button states
-                if (userState.hasJoinedChannel) {
-                    joinChannelBtn.textContent = 'Bonus Claimed';
-                    joinChannelBtn.disabled = true;
-                }
-                if (userState.hasJoinedGroup) {
-                    joinGroupBtn.textContent = 'Bonus Claimed';
-                    joinGroupBtn.disabled = true;
-                }
-            };
-            
-            const setupEventListeners = () => {
-                watchAdBtn.addEventListener('click', handleWatchAd);
-                joinChannelBtn.addEventListener('click', handleJoinChannel);
-                joinGroupBtn.addEventListener('click', handleJoinGroup); // New listener
-                withdrawForm.addEventListener('submit', handleWithdraw);
-                copyRefLinkBtn.addEventListener('click', copyReferralLink);
-            };
-
-            const handleWatchAd = () => {
-                if (userState.dailyAdWatchCount >= DAILY_AD_LIMIT) {
-                    tg.showAlert("You have reached your daily ad watch limit."); return;
-                }
-                loadingModal.style.display = 'flex';
-                show_9712189().then(() => {
-                    userState.points += POINTS_PER_AD;
-                    userState.dailyAdWatchCount++;
+            const fetchUserData = async (userId) => {
+                try {
+                    const response = await fetch(`${API_BASE_URL}/dashboard/${userId}`);
+                    const data = await response.json();
+                    userState.points = data.balance || 0;
+                    userState.dailyAdWatchCount = data.dailyAdsWatched || 0;
+                    userState.referrals = data.totalReferrals ? new Array(data.totalReferrals).fill(0) : [];
+                    userState.hasJoinedChannel = data.hasJoinedChannel || false;
                     saveState();
                     updateUI();
-                    tg.HapticFeedback.notificationOccurred('success');
-                    tg.showAlert(`Congratulations! You've earned ${POINTS_PER_AD} taka.`);
-                }).catch(() => {
-                    tg.showAlert("Ad could not be loaded. Please try again later.");
-                }).finally(() => {
-                    loadingModal.style.display = 'none';
-                });
-            };
-            
-            const handleJoinChannel = () => {
-                if(userState.hasJoinedChannel) {
-                    tg.showAlert('You have already claimed this bonus.'); return;
+                } catch (err) {
+                    tg.showAlert("Failed to load user data.");
                 }
-                tg.openTelegramLink(CHANNEL_LINK);
-                setTimeout(() => {
+            };
+
+            const claimReferral = async (referrerId, referredUserId) => {
+                try {
+                    const response = await fetch(`${API_BASE_URL}/referrals/claim-referral`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ referrerId, referredUserId })
+                    });
+                    const data = await response.json();
+                    if (data.error) {
+                        tg.showAlert(data.error);
+                        return;
+                    }
+                    tg.showAlert("Referral bonus claimed successfully!");
+                } catch (err) {
+                    tg.showAlert("Failed to process referral.");
+                }
+            };
+
+            const checkMembership = async () => {
+                try {
+                    const response = await fetch(`${API_BASE_URL}/tasks/check-membership`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ userId: userState.userId, chatId: '@tonerium_channel' })
+                    });
+                    const data = await response.json();
+                    return !data.error;
+                } catch (err) {
+                    return false;
+                }
+            };
+
+            const watchAd = async () => {
+                if (userState.dailyAdWatchCount >= DAILY_AD_LIMIT) {
+                    tg.showAlert("Daily ad limit reached!");
+                    return;
+                }
+
+                watchAdBtn.classList.add('loading');
+                watchAdBtn.disabled = true;
+                loadingModal.style.display = 'flex';
+
+                try {
+                    const response = await fetch(`${API_BASE_URL}/tasks/watch-ad`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ userId: userState.userId })
+                    });
+                    const data = await response.json();
+                    if (data.error) {
+                        tg.showAlert(data.error);
+                        return;
+                    }
+
+                    userState.points += POINTS_PER_AD;
+                    userState.dailyAdWatchCount += 1;
+                    saveState();
+                    updateUI();
+                    tg.showAlert(`Earned $${POINTS_PER_AD} for watching ad!`);
+                } catch (err) {
+                    tg.showAlert("Failed to process ad.");
+                } finally {
+                    watchAdBtn.classList.remove('loading');
+                    watchAdBtn.disabled = false;
+                    loadingModal.style.display = 'none';
+                }
+            };
+
+            const joinChannel = async () => {
+                if (userState.hasJoinedChannel) {
+                    tg.showAlert("You have already claimed this bonus!");
+                    return;
+                }
+
+                joinChannelBtn.classList.add('loading');
+                joinChannelBtn.disabled = true;
+                loadingModal.style.display = 'flex';
+
+                try {
+                    const isMember = await checkMembership();
+                    if (!isMember) {
+                        tg.openLink(CHANNEL_LINK);
+                        tg.showAlert("Please join the channel and try again.");
+                        return;
+                    }
+
+                    const response = await fetch(`${API_BASE_URL}/tasks/join-channel`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ userId: userState.userId })
+                    });
+                    const data = await response.json();
+                    if (data.error) {
+                        tg.showAlert(data.error);
+                        return;
+                    }
+
                     userState.points += CHANNEL_JOIN_BONUS;
                     userState.hasJoinedChannel = true;
-                    tg.showAlert(`Thank you! You received ${CHANNEL_JOIN_BONUS} bonus taka.`);
                     saveState();
                     updateUI();
-                }, 3000);
-            };
-
-            const handleJoinGroup = () => {
-                if(userState.hasJoinedGroup) {
-                    tg.showAlert('You have already claimed this bonus.'); return;
+                    tg.showAlert(`Earned $${CHANNEL_JOIN_BONUS} for joining the channel!`);
+                } catch (err) {
+                    tg.showAlert("Failed to process channel join.");
+                } finally {
+                    joinChannelBtn.classList.remove('loading');
+                    joinChannelBtn.disabled = false;
+                    loadingModal.style.display = 'none';
                 }
-                tg.openTelegramLink(GROUP_LINK);
-                setTimeout(() => {
-                    userState.points += GROUP_JOIN_BONUS;
-                    userState.hasJoinedGroup = true;
-                    tg.showAlert(`Thank you! You received ${GROUP_JOIN_BONUS} bonus taka.`);
-                    saveState();
-                    updateUI();
-                }, 3000);
             };
 
-            const handleWithdraw = async (e) => {
-                e.preventDefault();
-                const method = document.getElementById('withdraw-method').value;
-                const accountNumber = document.getElementById('account-number').value;
-                const amount = parseInt(document.getElementById('amount').value, 10);
+            const withdraw = async (event) => {
+                event.preventDefault();
+                const amount = parseFloat(document.getElementById('amount').value);
+                const tonWalletAddress = document.getElementById('account-number').value;
 
-                if (isNaN(amount) || amount <= 0) { tg.showAlert("Please enter a valid amount."); return; }
-                if (amount < MIN_WITHDRAW_POINTS) { tg.showAlert(`Minimum withdrawal is ${MIN_WITHDRAW_POINTS} points.`); return; }
-                if (amount > userState.points) { tg.showAlert("You don't have enough balance."); return; }
+                if (amount < MIN_WITHDRAW_POINTS) {
+                    tg.showAlert(`Minimum withdrawal is $${MIN_WITHDRAW_POINTS}.`);
+                    return;
+                }
+                if (userState.points < amount) {
+                    tg.showAlert("Insufficient balance.");
+                    return;
+                }
+                if (!tonWalletAddress || !tonWalletAddress.startsWith('EQ')) {
+                    tg.showAlert("Invalid TON wallet address.");
+                    return;
+                }
 
                 withdrawSubmitBtn.classList.add('loading');
                 withdrawSubmitBtn.disabled = true;
 
-                userState.points -= amount;
-                saveState();
-                updateUI();
-                
-                const user = tg.initDataUnsafe.user;
-                const message = `<b>New Withdraw Request!</b>\n-----------------------------------\n<b>User:</b> ${user.first_name || ''} ${user.last_name || ''} (@${user.username || 'N/A'})\n<b>User ID:</b> <code>${user.id}</code>\n-----------------------------------\n<b>Method:</b> ${method}\n<b>Account:</b> <code>${accountNumber}</code>\n<b>Amount:</b> ${amount} Points\n-----------------------------------\n<b>Date:</b> ${new Date().toLocaleString('en-US', { timeZone: 'Asia/Dhaka' })}`;
-                
-                const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
                 try {
-                    const response = await fetch(url, {
+                    const response = await fetch(`${API_BASE_URL}/withdraw/request`, {
                         method: 'POST',
-                        headers: {'Content-Type': 'application/json'},
-                        body: JSON.stringify({ chat_id: ADMIN_CHAT_ID, text: message, parse_mode: 'HTML'})
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ userId: userState.userId, amount, tonWalletAddress })
                     });
-                    const result = await response.json();
-                    if (result.ok) {
-                        tg.HapticFeedback.notificationOccurred('success');
-                        tg.showAlert("Withdrawal request submitted successfully!");
-                        withdrawForm.reset();
-                    } else { throw new Error(result.description); }
-                } catch (error) {
-                    tg.HapticFeedback.notificationOccurred('error');
-                    tg.showAlert("Failed to submit request. Your points have been returned.");
-                    userState.points += amount;
+                    const data = await response.json();
+                    if (data.error) {
+                        tg.showAlert(data.error);
+                        return;
+                    }
+
+                    userState.points -= amount;
                     saveState();
                     updateUI();
+                    tg.showAlert("Withdrawal request submitted successfully! You will be notified soon.");
+                    withdrawForm.reset();
+                } catch (err) {
+                    tg.showAlert("Failed to process withdrawal request.");
                 } finally {
                     withdrawSubmitBtn.classList.remove('loading');
                     withdrawSubmitBtn.disabled = false;
                 }
             };
-            
+
             const copyReferralLink = () => {
                 navigator.clipboard.writeText(referralLinkElem.value).then(() => {
                     tg.HapticFeedback.notificationOccurred('success');
                     tg.showAlert("Referral link copied!");
                 });
+            };
+
+            const updateUI = () => {
+                const user = tg.initDataUnsafe.user;
+                if (user) {
+                    userPhotoElem.src = user.photo_url || 'https://i.imgur.com/placeholder.png';
+                    userNameElem.innerHTML = `${user.first_name || 'User'} <i class="fas fa-check-circle verified-icon"></i>`;
+                }
+
+                userPointsElem.textContent = userState.points.toFixed(4);
+                dailyAdsWatchedElem.textContent = userState.dailyAdWatchCount;
+                referralCountElem.textContent = userState.referrals.length;
+                referralLinkElem.value = `https://t.me/${BOT_USERNAME}?start=ref_${userState.userId}`;
+
+                if (userState.hasJoinedChannel) {
+                    joinChannelBtn.querySelector('.btn-text').textContent = 'Bonus Claimed';
+                    joinChannelBtn.disabled = true;
+                }
+                if (userState.dailyAdWatchCount >= DAILY_AD_LIMIT) {
+                    watchAdBtn.querySelector('.btn-text').textContent = 'Daily Limit Reached';
+                    watchAdBtn.disabled = true;
+                }
             };
 
             const setupNavigation = () => {
@@ -477,6 +514,13 @@
                         button.classList.add('active');
                     });
                 });
+            };
+
+            const setupEventListeners = () => {
+                watchAdBtn.addEventListener('click', watchAd);
+                joinChannelBtn.addEventListener('click', joinChannel);
+                withdrawForm.addEventListener('submit', withdraw);
+                copyRefLinkBtn.addEventListener('click', copyReferralLink);
             };
 
             initApp();
